@@ -24,8 +24,14 @@ def generar_reporte():
         print(f"{'PRIORIDAD':<12} | {'ESTADO':<12} | {'ID':<4} | {'DESCRIPCIÓN'}")
         print("-" * 75)
 
+        prefijos = {
+            "ALTA": "[ALTA]",
+            "MEDIA": "[MEDIA]",
+            "BAJA": "[BAJA]"
+        }
+
         for t in tareas:
-            prio_text = "[ALTA]" if t.get('priority') == "ALTA" else "[NORMAL]"
+            prio_text = prefijos.get(t.get('priority'), "[INFO]")
 
             id_t = t.get('id', 'N/A')
             status = t.get('status', '???')

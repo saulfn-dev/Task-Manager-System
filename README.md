@@ -31,4 +31,4 @@ Hay dos opciones para visualizar la información:
     2. Ejecuta: `streamlit run dashboard.py`
 
 *   **Opción B: Reporte Técnico**
-    1. Ejecuta: `python reporte.py`
+    1. Ejecuta: `py reporte.py` (o `python reporte.py` según tu configuración).

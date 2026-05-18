@@ -25,9 +25,18 @@ data = cargar_datos()
 if data:
     df = pd.DataFrame(data)
 
+    mapeo_orden = {
+        'ALTA': '1. ALTA',
+        'MEDIA': '2. MEDIA',
+        'BAJA': '3. BAJA'
+    }
+    df['priority'] = df['priority'].map(mapeo_orden)
+
+    df = df.sort_values('priority')
+
     col1, col2, col3 = st.columns(3)
     col1.metric("Total Tareas", len(df))
-    col2.metric("Prioridad ALTA", len(df[df['priority'] == 'ALTA']))
+    col2.metric("Prioridad ALTA", len(df[df['priority'] == '1. ALTA']))
     col3.metric("Pendientes", len(df[df['status'] == 'PENDIENTE']))
 
     st.divider()
@@ -37,7 +46,7 @@ if data:
     with col_left:
         st.subheader("Distribución por prioridad")
         fig_pie = px.pie(df, names='priority', color='priority',
-                         color_discrete_map={'ALTA':'#ef553b', 'MEDIA':'#636efa', 'BAJA':'#00cc96'})
+                         color_discrete_map={'1. ALTA':'#ef553b', '2. MEDIA':'#636efa', '3. BAJA':'#00cc96'})
         st.plotly_chart(fig_pie, use_container_width=True)
 
     with col_right:
@@ -49,4 +58,4 @@ if data:
 
 else:
     st.error(f"Error de conexión: No se puede acceder a la API en el puerto {PUERTO_BACKEND}.")
-    st.info(f"Para solucionar esto, asegúrate de que el servidor esté en ejecución y verifica que la API esté disponible en `http://localhost:{PUERTO_BACKEND}/api/tasks`.")
+    st.info(f"Para solucionar esto, asegúrate de que el servidor esté en ejecución.")
