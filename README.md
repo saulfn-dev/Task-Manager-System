@@ -1,6 +1,8 @@
 # Sistema de Gestión de Tareas
 
-![Captura del Dashboard](./screenshots/dashboard.png)
+<p align="center">
+  <img src="./screenshots/dashboard.png" width="800" title="Dashboard Preview">
+</p>
 
 Este proyecto es una solución integral que combina un **Backend en Java** con un **Cliente de monitoreo en Python**, demostrando la integración entre diferentes ecosistemas tecnológicos.
 
@@ -16,7 +18,17 @@ Este proyecto es una solución integral que combina un **Backend en Java** con u
 * `pom.xml`: Dependencias de Maven para el proyecto Java.
 
 ## Cómo ejecutarlo
-1. **Levantar el Backend:** Ejecuta la clase `DemoApplication.java` desde tu IDE (IntelliJ). El servidor iniciará en `http://localhost:8080`.
-2. **Lanzar el Reporte:** Abre una terminal y ejecuta:
-   ```bash
-   python reporte.py
+
+### 1. Levantar el Backend
+Ejecuta `DemoApplication.java`. El servidor iniciará en `http://localhost:8080`.
+
+### 2. Consumir los datos
+
+Hay dos opciones para visualizar la información:
+
+*   **Opción A: Dashboard Visual**
+    1. Instala las dependencias: `pip install streamlit pandas plotly requests`
+    2. Ejecuta: `streamlit run dashboard.py`
+
+*   **Opción B: Reporte Técnico**
+    1. Ejecuta: `python reporte.py`
