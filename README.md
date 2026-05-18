@@ -1,5 +1,7 @@
 # Sistema de Gestión de Tareas
 
+![Captura del Dashboard](./screenshots/dashboard.png)
+
 Este proyecto es una solución integral que combina un **Backend en Java** con un **Cliente de monitoreo en Python**, demostrando la integración entre diferentes ecosistemas tecnológicos.
 
 ## Tecnologías Utilizadas
