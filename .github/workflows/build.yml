@@ -10,6 +10,10 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
+    defaults:
+      run:
+        working-directory: demo
+
     steps:
       - name: Descargar el codigo de GitHub
         uses: actions/checkout@v4
