@@ -7,10 +7,8 @@ function App() {
   const [newPriority, setNewPriority] = useState('MEDIA');
   const [errorBackend, setErrorBackend] = useState(false);
 
-  // La URL exacta donde tu Spring Boot escucha las peticiones
   const API_URL = 'http://localhost:8080/api/tasks';
 
-  // FUNCIÓN PARA TRAER LAS TAREAS DE JAVA (GET)
   const fetchTasks = async () => {
     try {
       const response = await fetch(API_URL);
@@ -23,16 +21,18 @@ function App() {
       }
     } catch (error) {
       console.error('No se pudo conectar con Spring Boot:', error);
-      setErrorBackend(true); // Activa la alerta de que Java está apagado
+      setErrorBackend(true);
+      setTasks([
+        { id: 1, description: 'Ejemplo: Configurar CI/CD con GitHub Actions', priority: 'ALTA' },
+        { id: 2, description: 'Ejemplo: Desplegar Frontend en GitHub Pages', priority: 'MEDIA' }
+      ]);
     }
   };
 
-  // Traer las tareas automáticamente nada más abrir la página web
   useEffect(() => {
     fetchTasks();
   }, []);
 
-  // FUNCIÓN PARA MANDAR UNA TAREA NUEVA A JAVA (POST)
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!newTitle.trim()) return;
@@ -50,11 +50,31 @@ function App() {
       });
 
       if (response.ok) {
-        setNewTitle(''); // Limpia el formulario
-        fetchTasks();    // Recarga la lista llamando de nuevo a Java para ver la nueva tarea
+        setNewTitle('');
+        fetchTasks();
       }
     } catch (error) {
       console.error('Error al guardar la tarea en Java:', error);
+      const mockTask = { id: Date.now(), description: newTitle, priority: newPriority };
+      setTasks([...tasks, mockTask]);
+      setNewTitle('');
+    }
+  };
+
+  const handleDelete = async (id) => {
+    try {
+      const response = await fetch(`${API_URL}/${id}`, {
+        method: 'DELETE'
+      });
+
+      if (response.ok) {
+        fetchTasks();
+      } else {
+        setTasks(tasks.filter(task => task.id !== id));
+      }
+    } catch (error) {
+      console.error('Error al borrar la tarea en Java:', error);
+      setTasks(tasks.filter(task => task.id !== id));
     }
   };
 
@@ -67,7 +87,7 @@ function App() {
 
         {errorBackend && (
             <div className="backend-alert">
-              ⚠️ <strong>Backend desconectado:</strong> No se pudo conectar con el servidor Java. Asegúrate de encender Spring Boot en IntelliJ.
+              ⚠️ <strong>Modo Demostración Activo:</strong> El backend local está desconectado. Puedes probar la interfaz interactiva simulada.
             </div>
         )}
 
@@ -107,7 +127,16 @@ function App() {
                       <div key={task.id} className={`task-card priority-${task.priority.toLowerCase()}`}>
                         <div className="card-body">
                           <p className="task-desc">{task.description}</p>
-                          <span className="badge">{task.priority}</span>
+                          <div className="card-footer">
+                            <span className="badge">{task.priority}</span>
+                            <button
+                                onClick={() => handleDelete(task.id)}
+                                className="delete-button"
+                                title="Eliminar tarea"
+                            >
+                              🗑️
+                            </button>
+                          </div>
                         </div>
                       </div>
                   ))
