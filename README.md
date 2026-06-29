@@ -6,7 +6,7 @@
 
 Este proyecto es una solución integral y Full-Stack que combina un **Backend robusto en Java**, un **Frontend interactivo en React** y **Clientes de monitoreo en Python**.
 
-## 🛠️ Tecnologías Utilizadas
+## Tecnologías Utilizadas
 
 * **Backend:** Java 25 (LTS), Spring Boot 4, Spring Data JPA.
 * **Frontend (SPA):** React (Vite), JavaScript ES6+, CSS3 Moderno con diseño *Dark Mode*.
